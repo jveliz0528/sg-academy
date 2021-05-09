@@ -1,0 +1,3 @@
+select postgrado.Nombre_postg,tipo_postgrado.Nombre_tipo_postg from profesor, prof_postgrado, postgrado, tipo_postgrado
+where prof_postgrado.Id_profesor=profesor.Id_profesor
+and postgrado.Id_postg=prof_postgrado.Id_postg and postgrado.Id_tipo_postg=tipo_postgrado.Id_tipo_postg;

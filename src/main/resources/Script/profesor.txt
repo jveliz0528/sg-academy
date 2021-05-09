@@ -1,0 +1,329 @@
+create database bd_sgca;
+use bd_sgca;
+
+
+CREATE TABLE Periodo (
+       Id_periodo INT AUTO_INCREMENT PRIMARY KEY
+     , Anio_periodo DATE
+)TYPE INNODB;
+
+CREATE TABLE Carrera (
+       Id_carrera INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_carrera VARCHAR(25)
+)TYPE INNODB; 
+
+CREATE TABLE Tipo_postgrado (
+       Id_tipo_postg INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_tipo_postg VARCHAR(25)
+)TYPE INNODB;
+
+CREATE TABLE Postgrado (
+       Id_postg INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_postg VARCHAR(50)
+     , Id_tipo_postg INT
+     , FOREIGN KEY (Id_tipo_postg) REFERENCES Tipo_postgrado (Id_tipo_postg)
+)TYPE INNODB; 
+
+CREATE TABLE Profesion (
+       Id_profesion INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_profesion VARCHAR(30)
+)TYPE INNODB; 
+
+CREATE TABLE Pais (
+       Id_pais INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_pais VARCHAR(20)
+)TYPE INNODB;
+
+CREATE TABLE Bitacora (
+       Id_bitacora INT AUTO_INCREMENT PRIMARY KEY
+     , mac VARCHAR(12)
+     , usuario VARCHAR(15)
+     , Fecha DATE
+     , Hora VARCHAR(8)
+     , Modulo VARCHAR(15)
+     , Evento VARCHAR(55)
+     , Observacion_1 VARCHAR(255)
+     , Observacion_2 VARCHAR(255)
+     , Observacion_3 VARCHAR(255)
+)TYPE INNODB; 
+
+CREATE TABLE Status (
+       Id_status INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_status VARCHAR(45)
+)TYPE INNODB; 
+
+CREATE TABLE Aula (
+       Id_aula INT AUTO_INCREMENT PRIMARY KEY
+     , nombre VARCHAR(45)
+)TYPE INNODB; 
+
+CREATE TABLE Usuario (
+       Id_usuario INT AUTO_INCREMENT PRIMARY KEY
+     , lg VARCHAR(45)
+     , pw VARCHAR(45)
+)TYPE INNODB; 
+
+CREATE TABLE Modalidad (
+       Id_modalidad INT AUTO_INCREMENT PRIMARY KEY
+     , Tipo_modalidad VARCHAR(10)
+)TYPE INNODB; 
+
+CREATE TABLE Materia (
+       Id_materia INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_materia VARCHAR(30)
+     , Unidad_credito INT
+     , Nivel INT
+     , Id_carrera INT NOT NULL
+     , CONSTRAINT FK_Materia_1 FOREIGN KEY (Id_carrera)
+                  REFERENCES Carrera (Id_carrera)
+)TYPE INNODB; 
+
+CREATE TABLE Estado (
+       Id_estado INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_estado VARCHAR(20)
+     , id_pais INT
+     , FOREIGN KEY (Id_pais) REFERENCES Pais (Id_pais)
+)TYPE INNODB;
+
+CREATE TABLE Ciudad (
+       Id_ciudad INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_ciudad VARCHAR(20)
+     , Id_estado INT
+     , FOREIGN KEY (Id_estado) REFERENCES Estado (Id_estado)
+)TYPE INNODB;
+
+CREATE TABLE Municipio (
+       Id_municipio INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_munic VARCHAR(20)
+     , Id_ciudad INT NOT NULL
+     , Id_estudiante INT
+     , Id_usuario INT
+     , CONSTRAINT FK_Municipio_1 FOREIGN KEY (Id_ciudad)
+                  REFERENCES Ciudad (Id_ciudad)
+)TYPE INNODB;
+
+CREATE TABLE Profesor (
+       Id_profesor INT AUTO_INCREMENT PRIMARY KEY
+     , Primer_nombre VARCHAR(30)
+     , Segundo_nombre VARCHAR(30)
+     , Primer_ape VARCHAR(30)
+     , Segundo_ape VARCHAR(30)
+     , Cargo VARCHAR(20)
+     , Sexo VARCHAR(9)
+     , Estado_civil VARCHAR(7)
+     , Disponibilidad_dia VARCHAR(10)
+     , Disponibilidad_hora VARCHAR(10)
+     , Fecha_nacimiento DATE
+     , Id_municipio INT
+     , Status VARCHAR(12)
+     , CONSTRAINT FK_Profesor_1 FOREIGN KEY (Id_municipio)
+                  REFERENCES Municipio (Id_municipio)
+)TYPE INNODB;
+
+CREATE TABLE Seccion (
+       Id_seccion INT AUTO_INCREMENT PRIMARY KEY
+     , Num_seccion VARCHAR(2)
+     , Id_carrera INT NOT NULL
+     , Id_modalidad INT NOT NULL
+     , CONSTRAINT FK_Seccion_1 FOREIGN KEY (Id_carrera)
+                  REFERENCES Carrera (Id_carrera)
+     , CONSTRAINT FK_Seccion_2 FOREIGN KEY (Id_modalidad)
+                  REFERENCES Modalidad (Id_modalidad)
+)TYPE INNODB;
+
+CREATE TABLE Estudiante (
+       Id_estudiante INT AUTO_INCREMENT PRIMARY KEY
+     , Primer_nombre VARCHAR(30)
+     , Segundo_nombre VARCHAR(30)
+     , Primer_apellido VARCHAR(30)
+     , Segundo_apellido VARCHAR(30)
+     , Cedula VARCHAR(12)
+     , Sexo VARCHAR(9)
+     , FechaN DATE
+     , Id_municipio INT
+     , Id_carrera INT NOT NULL
+     , CONSTRAINT FK_Estudiante_1 FOREIGN KEY (Id_municipio)
+                  REFERENCES Municipio (Id_municipio)
+     , CONSTRAINT FK_Estudiante_4 FOREIGN KEY (Id_carrera)
+                  REFERENCES Carrera (Id_carrera)
+)TYPE INNODB;
+
+CREATE TABLE Historial (
+       Id_historial INT AUTO_INCREMENT PRIMARY KEY
+     , Fecha_inicio DATE
+     , Id_profesor INT
+     , CONSTRAINT FK_Historial_1 FOREIGN KEY (Id_profesor) REFERENCES Profesor (Id_profesor)
+)TYPE INNODB;
+
+CREATE TABLE Prof_profesion (
+       Id_prof_profesion INT AUTO_INCREMENT PRIMARY KEY
+     , Id_profesion INT NOT NULL
+     , Id_profesor INT NOT NULL
+     , CONSTRAINT FK_Prof_profesion_1 FOREIGN KEY (Id_profesor)
+                  REFERENCES Profesor (Id_profesor)
+     , CONSTRAINT FK_Prof_profesion_2 FOREIGN KEY (Id_profesion)
+                  REFERENCES Profesion (Id_profesion)
+)TYPE INNODB;
+
+CREATE TABLE Prof_carrera (
+       Id_pro_carrera INT AUTO_INCREMENT PRIMARY KEY
+     , Id_carrera INT NOT NULL
+     , Id_profesor INT NOT NULL
+     , CONSTRAINT FK_Prof_carrera_1 FOREIGN KEY (Id_profesor)
+                  REFERENCES Profesor (Id_profesor)
+     , CONSTRAINT FK_Prof_carrera_2 FOREIGN KEY (Id_carrera)
+                  REFERENCES Carrera (Id_carrera)
+)TYPE INNODB; 
+
+
+
+CREATE TABLE Prof_postgrado (
+       Id_prof_postg INT AUTO_INCREMENT PRIMARY KEY
+     , Id_postg INT NOT NULL
+     , Id_profesor INT NOT NULL
+     , CONSTRAINT FK_Prof_postgrado_1 FOREIGN KEY (Id_profesor)
+                  REFERENCES Profesor (Id_profesor)
+     , CONSTRAINT FK_Prof_postgrado_2 FOREIGN KEY (Id_postg)
+                  REFERENCES Postgrado (Id_postg)
+)TYPE INNODB; 
+
+CREATE TABLE Correo (
+       Id_correo INT AUTO_INCREMENT PRIMARY KEY
+     , Nombre_correo VARCHAR(20)
+     , Id_profesor INT
+     , Id_estudiante INT
+     , Id_usuario INT
+     , CONSTRAINT FK_Correo_1 FOREIGN KEY (Id_estudiante)
+                  REFERENCES Estudiante (Id_estudiante)
+     , CONSTRAINT FK_Correo_2 FOREIGN KEY (Id_profesor)
+                  REFERENCES Profesor (Id_profesor)
+)TYPE INNODB; 
+
+CREATE TABLE Prof_seccion (
+       Id_prof_seccion INT AUTO_INCREMENT PRIMARY KEY
+     , Id_seccion INT NOT NULL
+     , Id_profesor INT NOT NULL
+     , CONSTRAINT FK_Prof_seccion_1 FOREIGN KEY (Id_profesor)
+                  REFERENCES Profesor (Id_profesor)
+     , CONSTRAINT FK_Prof_seccion_2 FOREIGN KEY (Id_seccion)
+                  REFERENCES Seccion (Id_seccion)
+)TYPE INNODB; 
+
+CREATE TABLE Prof_materia (
+       Id_prof_materia INT AUTO_INCREMENT PRIMARY KEY
+     , Id_materia INT NOT NULL
+     , Id_profesor INT NOT NULL
+     , CONSTRAINT FK_Prof_materia_1 FOREIGN KEY (Id_profesor)
+                  REFERENCES Profesor (Id_profesor)
+     , CONSTRAINT FK_Prof_materia_2 FOREIGN KEY (Id_materia)
+                  REFERENCES Materia (Id_materia)
+)TYPE INNODB; 
+
+CREATE TABLE Direccion (
+       Id_direccion INT AUTO_INCREMENT PRIMARY KEY
+     , Num_direccion VARCHAR(50)
+     , Id_estudiante INT
+     , Id_usuario INT
+     , Id_profesor INT
+     , CONSTRAINT FK_Direccion_1 FOREIGN KEY (Id_estudiante)
+                  REFERENCES Estudiante (Id_estudiante)
+     , CONSTRAINT FK_Direccion_2 FOREIGN KEY (Id_profesor)
+                  REFERENCES Profesor (Id_profesor)
+)TYPE INNODB;
+
+CREATE TABLE Telefono (
+       Id_telef INT AUTO_INCREMENT PRIMARY KEY
+     , Numero_telef VARCHAR(14)
+     , Id_usuario INT
+     , Id_estudiante INT
+     , Id_profesor INT
+     , CONSTRAINT FK_Telefono_1 FOREIGN KEY (Id_estudiante)
+                  REFERENCES Estudiante (Id_estudiante)
+     , CONSTRAINT FK_Telefono_2 FOREIGN KEY (Id_profesor)
+                  REFERENCES Profesor (Id_profesor)
+)TYPE INNODB;
+
+CREATE TABLE Rezagado (
+       Id_rezagado INT AUTO_INCREMENT PRIMARY KEY
+     , Cedula VARCHAR(12)
+     , Id_materia INT
+     , Nivel INT
+     , Fecha_solicitud DATE
+     , Fecha_perdida DATE
+     , Fecha_aplicacion DATE
+     , estado CHAR(2)
+     , Observaciones VARCHAR(254)
+     , CONSTRAINT FK_Rezagado_1 FOREIGN KEY (Id_materia)
+                  REFERENCES Materia (Id_materia)
+)TYPE INNODB;
+
+CREATE TABLE Horario (
+       Id_horario INT AUTO_INCREMENT PRIMARY KEY
+     , Id_profesor INT
+     , Id_materia INT
+     , Id_seccion INT
+     , Id_modalidad INT
+     , Bloque_horario VARCHAR(2)
+     , Tipo_hora VARCHAR(1)
+     , Id_carrera INT
+     , CONSTRAINT FK_Horario_1 FOREIGN KEY (Id_modalidad)
+                  REFERENCES Modalidad (Id_modalidad)
+     , CONSTRAINT FK_Horario_2 FOREIGN KEY (Id_carrera)
+                  REFERENCES Carrera (Id_carrera)
+     , CONSTRAINT FK_Horario_3 FOREIGN KEY (Id_profesor)
+                  REFERENCES Profesor (Id_profesor)
+     , CONSTRAINT FK_Horario_4 FOREIGN KEY (Id_seccion)
+                  REFERENCES Seccion (Id_seccion)
+     , CONSTRAINT FK_Horario_5 FOREIGN KEY (Id_materia)
+                  REFERENCES Materia (Id_materia)
+)TYPE INNODB;
+
+CREATE TABLE RecuperacionClase (
+       Id_recC INT AUTO_INCREMENT PRIMARY KEY
+     , fechaS DATE
+     , fechaR DATE
+     , horaR VARCHAR(8)
+     , horaS VARCHAR(8)
+     , motivo VARCHAR(255)
+     , Id_modalidad INT NOT NULL
+     , Id_seccion INT NOT NULL
+     , Id_materia INT NOT NULL
+     , Id_profesor INT NOT NULL
+     , id_status INT NOT NULL
+     , id_aula INT NOT NULL
+     , id_usuario INT NOT NULL
+     , CONSTRAINT FK_RecuperacionClase_1 FOREIGN KEY (Id_modalidad)
+                  REFERENCES Modalidad (Id_modalidad)
+     , CONSTRAINT FK_RecuperacionClase_2 FOREIGN KEY (Id_seccion)
+                  REFERENCES Seccion (Id_seccion)
+     , CONSTRAINT FK_RecuperacionClase_3 FOREIGN KEY (Id_materia)
+                  REFERENCES Materia (Id_materia)
+     , CONSTRAINT FK_RecuperacionClase_4 FOREIGN KEY (Id_profesor)
+                  REFERENCES Profesor (Id_profesor)
+     , CONSTRAINT FK_RecuperacionClase_5 FOREIGN KEY (id_status)
+                  REFERENCES Status (id_status)
+     , CONSTRAINT FK_RecuperacionClase_6 FOREIGN KEY (id_aula)
+                  REFERENCES Aula (id_aula)
+     , CONSTRAINT FK_RecuperacionClase_7 FOREIGN KEY (id_usuario)
+                  REFERENCES Usuario (id_usuario)
+)TYPE INNODB;
+
+CREATE TABLE Detalles_Historial (
+       Id_detalle INT AUTO_INCREMENT PRIMARY KEY
+     , Id_materia INT
+     , Id_periodo INT
+     , Id_modalidad INT
+     , Id_historial INT
+     , Condicion VARCHAR(20)
+     , Numero_horas INT
+     , Observaciones VARCHAR(255)
+     , Id_carrera INT
+     , CONSTRAINT FK_Detalles_Historial_1 FOREIGN KEY (Id_periodo)
+                  REFERENCES Periodo (Id_periodo)
+     , CONSTRAINT FK_Detalles_Historial_2 FOREIGN KEY (Id_historial)
+                  REFERENCES Historial (Id_historial)
+     , CONSTRAINT FK_Detalles_Historial_3 FOREIGN KEY (Id_modalidad)
+                  REFERENCES Modalidad (Id_modalidad)
+     , CONSTRAINT FK_Detalles_Historial_4 FOREIGN KEY (Id_materia)
+                  REFERENCES Materia (Id_materia)
+)TYPE INNODB;

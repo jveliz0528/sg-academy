@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table (name = "phones")
+@Table(name = "phones")
 
 //Lombox
 @NoArgsConstructor
@@ -25,28 +25,28 @@ import lombok.Setter;
 @Getter
 @Setter
 
-@Audited //Check if this class will be audited
-public class Phone implements Serializable{
-	
+@Audited // Check if this class will be audited
+public class Phone implements Serializable {
+
 	private static final long serialVersionUID = 8530098289918553120L;
 
-	//Constructor
+	// Constructor
 
-	//Getter & Setter
+	// Getter & Setter
 
-	//hash & equal
+	// hash & equal
 
-	//toString
+	// toString
 
-	//Atributos
+	// Atributos
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_phone", length = 11)
-    private Long idPhone;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_phone", length = 11)
+	private Long idPhone;
 
-	@Column (name = "cod_phone", length = 20)
+	@Column(name = "cod_phone", length = 20)
 	private String codPhone;
-	
-    @Column(name = "phone", length = 11, unique = true)
-    private String phone;
+
+	@Column(name = "phone", length = 11, unique = true)
+	private String phone;
 }

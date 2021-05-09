@@ -38,8 +38,8 @@ public class Student implements Serializable {
 
 	}
 
-	public Student(Long idStudent, Long document, String firstName, String lastName,
-			int age, Gender gender, List<Phone> phone) {
+	public Student(Long idStudent, Long document, String firstName, String lastName, int age, Gender gender,
+			List<Phone> phone) {
 		super();
 		this.idStudent = idStudent;
 		this.document = document;
@@ -49,7 +49,7 @@ public class Student implements Serializable {
 		this.gender = gender;
 		this.phone = phone;
 	}
-	
+
 	// Gette and setter
 	public Long getIdStudent() {
 		return idStudent;
@@ -182,8 +182,8 @@ public class Student implements Serializable {
 	@Override
 	public String toString() {
 		return "Student [idStudent=" + idStudent + ", document=" + document + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", age=" + age + ", birthBate=" + birthBate + ", gender=" + gender.getGender() + ", phone=" + phone
-				+ "]";
+				+ lastName + ", age=" + age + ", birthBate=" + birthBate + ", gender=" + gender.getGender() + ", phone="
+				+ phone + "]";
 	}
 
 	// Attributes
@@ -195,7 +195,7 @@ public class Student implements Serializable {
 	@NotNull(message = "{student.document.notNull}")
 	@Column(name = "document", length = 11, unique = true, nullable = false)
 	private Long document;
-	
+
 	@NotEmpty
 	@Column(name = "first_name", length = 50, nullable = false)
 	private String firstName;
@@ -203,28 +203,27 @@ public class Student implements Serializable {
 	@NotEmpty
 	@Column(name = "last_name", length = 50, nullable = false)
 	private String lastName;
-	
-    @NotNull(message = "{student.age.notNull}")
-    @Min(value = 3, message = "{student.age.min}")
-    @Max(value = 100)
+
+	@NotNull(message = "{student.age.notNull}")
+	@Min(value = 3, message = "{student.age.min}")
+	@Max(value = 100)
 	@Column(name = "age", length = 3, nullable = false)
 	private int age;
-	
+
 	@NotNull(message = "{student.birthday.notNull}")
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past(message = "{student.birthday.past}")
 	@Column(name = "birth_bate")
 	private Date birthBate;
-		
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_gender", referencedColumnName = "cod_gender", nullable = false)
 	@NotAudited // indicates that this entity will not be audited
 	private Gender gender;
-	
-    @OneToMany(cascade = CascadeType.ALL)
-	@JoinTable( name = "students_phones", joinColumns = {
-							@JoinColumn(name = "idStudent", nullable = false, updatable = false) },
-	  inverseJoinColumns = {	  
-			  				@JoinColumn(name = "idPhone", nullable = false, updatable = false) } )
-    private List<Phone> phone = new ArrayList<>();
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "students_phones", joinColumns = {
+			@JoinColumn(name = "idStudent", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "idPhone", nullable = false, updatable = false) })
+	private List<Phone> phone = new ArrayList<>();
 }

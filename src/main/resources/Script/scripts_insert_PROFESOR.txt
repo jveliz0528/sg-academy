@@ -1,0 +1,166 @@
+insert into Carrera values
+(001,'Ing.Sistemas'),
+(002,'Ing.Civil'),
+(003,'Lic.Educacion'),
+(004,'Lic.Administracion.'),
+(005,'Lic.Economia'),
+(006,'TSU.Enfermeria');
+
+insert into modalidad values(007,'termino');
+
+insert into seccion values
+(008,'1',001,007),
+(009,'2',001,007),
+(0010,'3',003,007),
+(0011,'4',004,007),
+(0012,'5',005,007);
+
+
+insert into Materia values
+(0013,'Auditoria de sistemas',3,1,001),
+(0014,'teoria de la decision',4,2,001),
+(0015,'Sistema de produccion',3,3,002),
+(0016,'Estadistica',4,4,003),
+(0017,'Psicologia',3,5,001),
+(0018,'Marco legal',3,6,001);
+
+insert into Tipo_postgrado values
+(0030,'POSTDOCTORADO'),
+(0031,'DOCTORADO'),
+(0032,'MAESTRIAS'),
+(0033,'ESPECIALIZACIONES');
+
+
+
+insert into Postgrado values
+(0019,'Ciencias Gerenciales',0030),
+(0020,'Ciencias de la Educacion',0030),
+(0021,'Seg y Desarrollo Integral',0030),
+(0022,'Innovacion Educativa',0031),
+(0023,'Ciencias Gerenciales',0031),
+(0024,'Gobierno Electronico',0031),
+(0025,'Tecnologia Educativa',0032),
+(0026,'Perforacion Petrolera',0032),
+(0027,'Tecnica en T Ferroviaro',0032),
+(0028,'Gerencia Social',0033),
+(0029,'Gerencia Publica',0033);
+
+
+insert into Profesion values
+(0034,'Ing.Sistemas'),
+(0035,'Ing.Civil'),
+(0036,'Lic.Educacion'),
+(0037,'Lic.Administracion.'),
+(0038,'Lic.Economia'),
+(0039,'TSU.Enfermeria');
+
+
+insert into Pais values
+(0040,'Venezuela'),
+(0041,'Colombia'),
+(0042,'Brasil'),
+(0043,'Peru');
+
+
+insert into Estado values
+(0044,'Carabobo',0040),
+(0045,'Lara',0040),
+(0046,'Cojedes',0040),
+(0047,'Yaracuy',0040),
+(0048,'Vargas',0040),
+(0049,'Trujillo',0040),
+(0050,'Amazonas',0040),
+(0051,'Aragua',0040),
+(0052,'Merida',0040),
+(0053,'Azuategui',0040),
+(0054,'Dtt.capital',0040),
+(0055,'Zulia',0040),
+(0056,'Apure',0040),
+(0057,'Barina',0040),
+(0058,'Pereira',0041),
+(0059,'Bogota',0041);
+
+
+
+
+insert into Ciudad values
+(0060,'Valencia',0044),
+(0061,'Barquisimeto',0045),
+(0062,'San Carlos',0046),
+(0063,'San Felipe',0047),
+(0064,'La Guaira ',0048),
+(0065,'Trujillo',0049);
+
+insert into Usuario values (0,'root','root');
+
+insert into Municipio values
+(0066,'Independencia',0063,100,0),
+(0067,'San Felipe',0063,100,0);
+
+
+insert into Profesor values
+(121,'Jesus','Abrahan','veliz','Betancuort','coordinador','M','S','Martes','1:00-1:45','1984/05/27',0066,'Activo'),
+(122,'Eilen','Yessenia','Torrealba','Salazar','contratada','F','V','Lunes','9:05-9:50','1987/05/15',0066,'Activo'),
+(123,'Beatrix','Del carmen','Puertas','Lopez','coordinador','F','S','Sabados','8:00-11:45','1988/08/28',0067,'Activo'),
+(124,'Gabriela','Alexandra','cardenas','Martinez','coordinador','F','S','Miercoles','4:00-4:45','1988/06/27',0067,'Activo');
+
+
+insert into Prof_seccion values
+(0068,009,123),
+(0069,0010,122),
+(0070,0011,124),
+(0071,0012,121);
+
+
+
+insert into Prof_materia values
+(0074,0013,123),
+(0075,0014,122),
+(0076,0015,124),
+(0077,0016,121);
+
+
+insert into Prof_postgrado values
+(0079,0019,121),
+(0080,0020,123);
+
+
+
+insert into Prof_profesion values
+(0081,0034,124),
+(0082,0035,123),
+(0083,0036,122),
+(0084,0037,121);
+
+insert into Estudiante values
+(00100,'Angel','Enrique','Rodriguez','Betancuort','18000000','M','1988/02/27',0066,001);
+
+insert into Correo values
+(0085,'jesus_a@hotmail.com',121,00100,00),
+(0086,'nelieyer@hotmail.com',122,00100,00),
+(0087,'beatrix@hotmail.com',123,00100,00),
+(0088,'gaby2003@hotmail.com',124,00100,00);
+
+
+
+insert into Direccion values
+(0089,'calle 5 entre 3 y 4 av',00100,00,123),
+(0090,'av 5 entre calle 3 y 4',00100,00,122),
+(0091,'calle 7 entre av 4 y 5',00100,00,121),
+(0092,'av 6 entre calle 5 y 6',00100,00,124);
+
+
+
+
+insert into Telefono values
+(0093,'0426-806-05-26',00,00100,121),
+(0094,'0424-450-15-36',00,00100,122),
+(0095,'0426-453-06-24',00,00100,123),
+(0096,'0412-775-94-41',00,00100,124);
+
+
+insert into Prof_carrera values
+(0097,001,121),
+(0098,002,122),
+(0099,001,123),
+(00100,002,124);
